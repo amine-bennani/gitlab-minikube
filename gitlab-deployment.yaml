@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-ce
+  labels:
+    app: gitlab-ce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-ce
+  template:
+    metadata:
+      labels:
+        app: gitlab-ce
+    spec:
+      containers:
+      - name: gitlab-ce
+        image: gitlab/gitlab-ce:latest
+        # Adjust resources if your system is limited
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "2Gi"
+          limits:
+            cpu: "1"
+            memory: "4Gi"
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        - containerPort: 22
+
